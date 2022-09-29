@@ -11,7 +11,6 @@ export default class SplashWindow extends AbstractWindow {
       height: 728,
       icon: this.getAssetPath('icon.png'),
       webPreferences: {
-        sandbox: false,
         preload: this.electronApp.isPackaged
           ? path.join(__dirname, '../preload.js')
           : path.join(__dirname, '../../../.erb/dll/preload.js'),
