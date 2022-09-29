@@ -4,12 +4,12 @@
 
 import * as path from 'path';
 import * as webpack from 'webpack';
-import * as HtmlWebpackPlugin from 'html-webpack-plugin';
-import * as MiniCssExtractPlugin from 'mini-css-extract-plugin';
+import HtmlWebpackPlugin from 'html-webpack-plugin';
+import MiniCssExtractPlugin from 'mini-css-extract-plugin';
 import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer';
-import * as CssMinimizerPlugin from 'css-minimizer-webpack-plugin';
+import CssMinimizerPlugin from 'css-minimizer-webpack-plugin';
 import { merge } from 'webpack-merge';
-import * as TerserPlugin from 'terser-webpack-plugin';
+import TerserPlugin from 'terser-webpack-plugin';
 import baseConfig from './webpack.config.base';
 import webpackPaths from './webpack.paths';
 import checkNodeEnv from '../scripts/check-node-env';
