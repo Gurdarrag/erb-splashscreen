@@ -44,4 +44,6 @@ export default class MainWindow extends AbstractWindow {
       return { action: 'deny' };
     });
   }
+
+  protected registerListeners = (): void => {};
 }
