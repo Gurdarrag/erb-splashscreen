@@ -2,7 +2,6 @@ import { BrowserWindow, shell } from 'electron';
 import path from 'path';
 import AbstractWindow from './AbstractWindow';
 import { resolveHtmlPath } from '../util';
-import MenuBuilder from '../menu';
 
 export default class SplashWindow extends AbstractWindow {
   render(): void {
@@ -18,8 +17,20 @@ export default class SplashWindow extends AbstractWindow {
           : path.join(__dirname, '../../../.erb/dll/preload.js'),
       },
     });
+
     this.window.loadURL(resolveHtmlPath('splash.html'));
 
+    // Open urls in the user's browser
+    this.window.webContents.setWindowOpenHandler((edata) => {
+      shell.openExternal(edata.url);
+      return { action: 'deny' };
+    });
+
+    this.registerListeners();
+  }
+
+  protected registerListeners(): void {
+    if (!this.window) throw new Error('"splashWindow" is not defined');
     this.window.on('ready-to-show', () => {
       if (!this.window) {
         throw new Error('"splashWindow" is not defined');
@@ -29,19 +40,11 @@ export default class SplashWindow extends AbstractWindow {
       } else {
         this.window.show();
       }
+      this.emit('ready');
     });
 
     this.window.on('closed', () => {
       this.window = undefined;
-    });
-
-    const menuBuilder = new MenuBuilder(this.window);
-    menuBuilder.buildMenu();
-
-    // Open urls in the user's browser
-    this.window.webContents.setWindowOpenHandler((edata) => {
-      shell.openExternal(edata.url);
-      return { action: 'deny' };
     });
   }
 }
