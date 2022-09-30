@@ -1,9 +1,9 @@
 import 'webpack-dev-server';
-import * as path from 'path';
-import * as fs from 'fs';
-import * as webpack from 'webpack';
+import path from 'path';
+import fs from 'fs';
+import webpack from 'webpack';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
-import * as chalk from 'chalk';
+import chalk from 'chalk';
 import { merge } from 'webpack-merge';
 import { execSync, spawn } from 'child_process';
 import ReactRefreshWebpackPlugin from '@pmmmwh/react-refresh-webpack-plugin';
