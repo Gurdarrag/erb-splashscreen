@@ -1,8 +1,9 @@
 import path from 'path';
 import { BrowserWindow, app } from 'electron';
+import { EventEmitter } from 'events';
 import { AppOptions } from '../core/AppOptions';
 
-export default abstract class AbstractWindow {
+export default abstract class AbstractWindow extends EventEmitter {
   electronApp: Electron.App;
 
   protected readonly isDebug: boolean = false;
@@ -12,20 +13,23 @@ export default abstract class AbstractWindow {
   protected window: BrowserWindow | undefined;
 
   constructor(options: AppOptions) {
+    super();
     this.electronApp = app;
     this.options = options;
     this.isDebug = options.isDebug ?? false;
   }
 
-  init = async () => {
+  public async init() {
     if (this.isDebug) {
       await this.installExtensions();
     }
-  };
+  }
 
-  abstract render(): void;
+  public abstract render(): void;
 
-  installExtensions = async () => {
+  protected abstract registerListeners(): void;
+
+  protected installExtensions = async () => {
     // eslint-disable-next-line global-require
     const installer = require('electron-devtools-installer');
     const forceDownload = !!process.env.UPGRADE_EXTENSIONS;
@@ -42,7 +46,7 @@ export default abstract class AbstractWindow {
     );
   };
 
-  getAssetPath = (...paths: string[]): string => {
+  protected getAssetPath = (...paths: string[]): string => {
     return path.join(this.options.resourcesPath, ...paths);
   };
 }

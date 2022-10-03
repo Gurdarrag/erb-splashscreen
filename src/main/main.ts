@@ -8,7 +8,7 @@
  * When running `npm run build` or `npm run build:main`, this file is compiled to
  * `./src/main.js` using webpack. This gives us some performance wins.
  */
-import { app } from 'electron';
+import { app as electronApp } from 'electron';
 import path from 'path';
 import App from './core/App';
 
@@ -23,9 +23,11 @@ if (isDebug) {
   require('electron-debug')();
 }
 
-const resourcesPath = app.isPackaged
+const resourcesPath = electronApp.isPackaged
   ? path.join(process.resourcesPath, '../assets')
   : path.join(__dirname, '../../../assets');
 
-// eslint-disable-next-line no-new
-new App({ isDebug, resourcesPath });
+const app = new App({ isDebug, resourcesPath });
+app.on('ready', async () => {
+  await app.start();
+});
