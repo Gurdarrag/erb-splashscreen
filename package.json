@@ -184,8 +184,8 @@
     "webpack-merge": "^5.8.0"
   },
   "build": {
-    "productName": "ElectronReactSplashscreen",
-    "appId": "org.erb.ElectronReactSplashscreen",
+    "productName": "ElectronReact",
+    "appId": "org.erb.ElectronReact",
     "asar": true,
     "asarUnpack": "**\\*.{node,dll}",
     "files": [
@@ -243,8 +243,8 @@
     ],
     "publish": {
       "provider": "github",
-      "owner": "Gurdarrag",
-      "repo": "erb-splashscreen"
+      "owner": "electron-react-boilerplate",
+      "repo": "electron-react-boilerplate"
     }
   },
   "collective": {
