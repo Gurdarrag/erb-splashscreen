@@ -10,7 +10,9 @@ export default abstract class AbstractWindow extends EventEmitter {
 
   protected options: AppOptions;
 
-  protected window: BrowserWindow | undefined;
+  public window: BrowserWindow | undefined;
+
+  protected channel: string = 'ipc-example';
 
   constructor(options: AppOptions) {
     super();
@@ -28,6 +30,10 @@ export default abstract class AbstractWindow extends EventEmitter {
   public abstract render(): void;
 
   protected abstract registerListeners(): void;
+
+  public sendToView(...args: unknown[]) {
+    this.window?.webContents.send(this.channel, ...args);
+  }
 
   protected installExtensions = async () => {
     // eslint-disable-next-line global-require

@@ -1,6 +1,6 @@
 /* eslint global-require: off, no-console: off, promise/always-return: off */
 
-import { app, ipcMain } from 'electron';
+import { app } from 'electron';
 import { EventEmitter } from 'events';
 import MainWindow from '../window/MainWindow';
 import SplashWindow from '../window/SplashWindow';
@@ -24,7 +24,6 @@ export default class App extends EventEmitter {
     this.options = options;
     this.configurator = new Configurator();
     this.registerListeners();
-    this.addIPCListener();
   }
 
   start = async () => {
@@ -53,17 +52,11 @@ export default class App extends EventEmitter {
         this.emit('ready');
       })
       .catch(console.log);
-
+    this.configurator.on('progress', (progress) => {
+      this.splashWindow?.sendToView('progress', progress);
+    });
     this.configurator.on('finished', () => {
       this.initMainWindow();
-    });
-  };
-
-  private addIPCListener = () => {
-    ipcMain.on('ipc-example', async (event, arg) => {
-      const msgTemplate = (pingPong: string) => `IPC test: ${pingPong}`;
-      console.log(msgTemplate(arg));
-      event.reply('ipc-example', msgTemplate('pong'));
     });
   };
 

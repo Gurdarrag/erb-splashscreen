@@ -4,6 +4,8 @@ import AbstractWindow from './AbstractWindow';
 import { resolveHtmlPath } from '../util';
 
 export default class SplashWindow extends AbstractWindow {
+  channel = 'splashwindow';
+
   render(): void {
     this.window = new BrowserWindow({
       show: false,

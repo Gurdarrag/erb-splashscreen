@@ -6,9 +6,7 @@ const container = document.getElementById('root')!;
 const root = createRoot(container);
 root.render(<App />);
 
-// calling IPC exposed from preload script
-window.electron.ipcRenderer.once('ipc-example', (arg) => {
+window.electron.ipcRenderer.on('splashwindow', (...args) => {
   // eslint-disable-next-line no-console
-  console.log(arg);
+  console.log(...args);
 });
-window.electron.ipcRenderer.sendMessage('ipc-example', ['ping']);
