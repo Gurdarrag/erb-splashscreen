@@ -4,12 +4,15 @@ declare global {
   interface Window {
     electron: {
       ipcRenderer: {
-        sendMessage(channel: Channels, args: unknown[]): void;
+        // eslint-disable-next-line  @typescript-eslint/no-explicit-any
+        sendMessage(channel: Channels, args: any[]): void;
         on(
           channel: Channels,
-          func: (...args: unknown[]) => void
+          // eslint-disable-next-line  @typescript-eslint/no-explicit-any
+          func: (...args: any[]) => void
         ): (() => void) | undefined;
-        once(channel: Channels, func: (...args: unknown[]) => void): void;
+        // eslint-disable-next-line  @typescript-eslint/no-explicit-any
+        once(channel: Channels, func: (...args: any[]) => void): void;
       };
     };
   }
