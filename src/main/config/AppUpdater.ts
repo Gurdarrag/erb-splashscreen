@@ -2,7 +2,7 @@ import log from 'electron-log';
 import { autoUpdater } from 'electron-updater';
 import ConfiguratorStep from './ConfiguratorStep';
 
-export default class AppUpdater implements ConfiguratorStep {
+export default class AppUpdater extends ConfiguratorStep {
   init = (): Promise<boolean> => {
     log.transports.file.level = 'info';
     autoUpdater.logger = log;
