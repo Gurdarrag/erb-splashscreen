@@ -4,14 +4,16 @@ import AbstractWindow from './AbstractWindow';
 import { resolveHtmlPath } from '../util';
 
 export default class SplashWindow extends AbstractWindow {
-  channel = 'splashwindow';
+  channel = 'window:splash';
 
   render(): void {
     this.window = new BrowserWindow({
       show: false,
-      width: 1024,
-      height: 728,
+      width: 600,
+      height: 400,
       icon: this.getAssetPath('icon.png'),
+      frame: false,
+      resizable: false,
       webPreferences: {
         preload: this.electronApp.isPackaged
           ? path.join(__dirname, '../preload.js')
