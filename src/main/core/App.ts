@@ -55,8 +55,9 @@ export default class App extends EventEmitter {
     this.configurator.on('progress', (progress) => {
       this.splashWindow?.sendToView('progress', progress);
     });
-    this.configurator.on('finished', () => {
-      this.initMainWindow();
+    this.configurator.on('finished', async () => {
+      await this.initMainWindow();
+      this.splashWindow?.close();
     });
   };
 
